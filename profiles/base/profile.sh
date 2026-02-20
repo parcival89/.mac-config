@@ -7,6 +7,7 @@ export PROFILES_HOME="$MAC_CONFIG_HOME/profiles"
 export BASE_PROFILE_HOME="$PROFILES_HOME/base"
 export BASE_PROFILE="$BASE_PROFILE_HOME/profile.sh"
 export CURRENT_PROFILE="$BASE_PROFILE"
+export PATH="$MAC_CONFIG_HOME/bin:$PATH"
 
 # Execution
 ## Profile
@@ -14,6 +15,21 @@ alias reload-profile='source $CURRENT_PROFILE'
 
 # General
 alias cls='clear'
+
+alias my-ip='ipconfig getifaddr en0'
+
+## update
+function update-mac-config() {
+  pushd $MAC_CONFIG_HOME
+  git pull
+  popd
+}
+
+function update-brew() {
+  pushd "$MAC_CONFIG_HOME/homebrew"
+  brew bundle
+  popd
+}
 
 ## oh-my-zsh
 function update-zsh-submodules() {
@@ -28,11 +44,55 @@ function add-custom-plugin() {
     popd
 }
 
+## gpg
+function gpg-list() {
+  gpg --list-secret-keys --keyid-format=long
+}
+
+function gpg-new() {
+  gpg --full-generate-key
+}
+
+function gpg-public() {
+  local GPG_KEY_ID="${1}"
+
+  gpg --armor --export $GPG_KEY_ID
+}
+
+function gpg-public-clipboard() {
+  local GPG_KEY_ID="${1}"
+
+  gpg-public $GPG_KEY_ID | pbcopy
+}
+
+function gpg-git-home-config() {
+  local GPG_KEY_ID="${1}"
+  local USER_NAME="parcival89"
+  local USER_EMAIL="paulus.sander@gmail.com"
+
+  gpg-git-config $USER_NAME $USER_EMAIL $GPG_KEY_ID
+}
+
+function gpg-git-kunlabora-config() {
+  local GPG_KEY_ID="${1}"
+  local USER_NAME="sander-kunlabora"
+  local USER_EMAIL="sander.paulus@kunlabora.be"
+
+  gpg-git-config $USER_NAME $USER_EMAIL $GPG_KEY_ID
+}
+
+function gpg-git-config() {
+  local USER_NAME="${1}"
+  local USER_EMAIL="${2}"
+  local GPG_KEY_ID="${3}"
+
+  git config user.name $USER_NAME
+  git config user.email $USER_EMAIL
+  git config user.signingkey $GPG_KEY_ID
+  git config commit.gpgsign true
+  git config tag.gpgSign true
+}
+
 ## Docker
 alias docker-rm='docker rm -vf $(docker ps -qa)'
 alias docker-rmi='docker rmi -f $(docker images -qa)'
-
-function start-oracle() {
-    docker rm -vf oracle-xe-11g
-    docker run -d -p 1521:1521 --name oracle-xe-11g vanpeerdevelopment/oracle-xe-11g
-}

@@ -1,0 +1,1 @@
+source "$(dirname $0)/../profiles/siemens/profile.sh"
