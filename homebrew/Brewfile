@@ -1,28 +1,35 @@
 ## Terminal
-brew "zsh"
-brew "bash-completion"
+brew "bash"
+brew "starship"
+brew "tmux"
 
-## General
-cask "raycast"
-cask "chatgpt"
+## CLI utilities
+brew "fd"
+brew "gawk"
+brew "ripgrep"
+brew "wget"
+
+## Editors
+brew "neovim"
+brew "luarocks"
+brew "tree-sitter-cli"
+cask "zed"
 
 ## Developer tools
-brew "git"
-brew "gpg"
-brew "pinentry-mac"
 brew "asdf"
-brew "git-remote-codecommit"
-brew "bitwarden-cli"
-brew "tmux"
-brew "telnet"
-brew "structurizr-cli"
-cask "aws-vault-binary"
-cask "session-manager-plugin"
+brew "gnupg"
+brew "awscli"
+brew "aws-vault"
+cask "claude-code"
 cask "docker-desktop"
-cask "windows-app"
-cask "virtualbox"
-cask "google-chrome"
-cask "imageoptim"
-cask "intellij-idea"
-cask "miro"
+cask "bruno"
 
+## Networking & remote access
+cask "tailscale-app"
+cask "rustdesk"
+cask "realvnc-connect-viewer"
+
+## General
+cask "firefox"
+cask "balenaetcher"
+cask "zwift"
