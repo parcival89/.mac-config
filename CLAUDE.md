@@ -17,6 +17,9 @@ update-brew
 # or directly:
 brew bundle --file=homebrew/Brewfile
 
+# Install asdf plugins and runtime versions (after a fresh install or version change)
+setup-asdf
+
 # Update zsh plugin/theme git submodules
 update-zsh-submodules
 
@@ -39,13 +42,13 @@ The core concept is a hierarchy of shell profiles sourced at login:
 
 Files in `zsh/` are sourced in alphabetical order via oh-my-zsh's `ZSH_CUSTOM` mechanism:
 - `00-brew.zsh` — Homebrew PATH (`/opt/homebrew/bin`) and disables analytics
-- `01-asdf.zsh` — asdf version manager setup; installs plugins and pins versions for Java, Node, Python, pnpm, Gradle, AWS CLI, Terraform, sops, age
+- `01-asdf.zsh` — asdf version manager setup (shims, completions, `JAVA_HOME` hook). Also defines `setup-asdf`, which installs plugins and pins versions for Java, Node, Python, pnpm, Gradle, AWS CLI, Terraform, sops, age. Installs are deliberately not run at shell start (they hang silently)
 - `02-bash-completion.zsh` — Loads Homebrew bash completions
 - `03-profile.zsh` — Sources the active work profile
 
 ### Runtime Version Management
 
-All language runtimes are managed by **asdf** (not system packages). Versions and plugins are defined in `zsh/01-asdf.zsh`. The `zsh/config/.asdfrc` enables `legacy_version_file = yes` so `.nvmrc`/`.python-version` files are respected.
+All language runtimes are managed by **asdf** (not system packages or SDKMAN). Versions and plugins are defined in `zsh/01-asdf.zsh`. The `zsh/config/.asdfrc` enables `legacy_version_file = yes` so `.nvmrc`/`.python-version` files are respected.
 
 ### Git Submodules
 

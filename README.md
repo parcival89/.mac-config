@@ -17,6 +17,10 @@ Overview of the tools installed on my mac, several terminal profiles and useful 
 - [Manage homebrew services](https://github.com/Homebrew/homebrew-services)
 - [Mac App Store CLI](https://github.com/mas-cli/mas)
 
+#### asdf
+- Install all runtimes (Java, Node, Python, ...) by running `setup-asdf` once the zsh config is loaded
+- Versions are defined in `<MAC_CONFIG>/zsh/01-asdf.zsh`
+
 #### Python
 - To install all python dependencies run `pip3 install -r <MAC_CONFIG>/python/requirements.txt`
     
